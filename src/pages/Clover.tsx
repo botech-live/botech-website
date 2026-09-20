@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Section, Container, Card, Badge } from '@/components/ui';
 import { siteConfig } from '@/config/site';
@@ -6,6 +5,8 @@ import { useI18n } from '@/i18n';
 import { pageSEO } from '@/config/seo';
 import { NavLink } from 'react-router-dom';
 import { OrbitBackground } from '@/components/ui/OrbitBackground';
+import { JsonLd } from '@/components/ui/JsonLd';
+import { breadcrumbJsonLd, softwareAppJsonLd } from '@/config/structured-data';
 
 export function CloverPage() {
   const { t, locale } = useI18n();
@@ -20,14 +21,22 @@ export function CloverPage() {
       canonical={seo.canonical}
       ogImage={seo.ogImage}
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta property="og:image" content={seo.ogImage} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-        <meta name="twitter:image" content={seo.ogImage} />
-      </Helmet>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { label: siteConfig.navigation.main[0].label[locale], href: '/' },
+          { label: siteConfig.navigation.main.find((n) => n.key === 'products')!.label[locale], href: '/products' },
+          { label: product.name, href: '/clover' },
+        ])}
+      />
+      <JsonLd
+        data={softwareAppJsonLd({
+          name: product.name,
+          url: '/clover',
+          image: product.logo,
+          description: locale === 'ar' ? product.description.ar : product.description.en,
+          operatingSystem: 'Android, Web',
+        })}
+      />
 
       {/* Hero */}
       <section className="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden bg-neutral-900 text-white">

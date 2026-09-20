@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Section, Container, Input, Textarea, Button } from '@/components/ui';
 import { siteConfig } from '@/config/site';
@@ -9,6 +8,8 @@ import { pageSEO } from '@/config/seo';
 import { useLocation } from 'react-router-dom';
 import { Reveal, RevealStagger } from '@/components/ui/Reveal';
 import { OrbitBackground } from '@/components/ui/OrbitBackground';
+import { JsonLd } from '@/components/ui/JsonLd';
+import { breadcrumbJsonLd } from '@/config/structured-data';
 
 const RECAPTCHA_SITE_KEY = siteConfig.contact.recaptchaSiteKey;
 
@@ -223,14 +224,15 @@ export function Contact() {
       description={seo.description}
       canonical={seo.canonical}
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { label: siteConfig.navigation.main[0].label[locale], href: '/' },
+          { label: siteConfig.navigation.main.find((n) => n.key === 'contact')!.label[locale], href: '/contact' },
+        ])}
+      />
 
       {/* Contact Form & Info */}
+      <h1 className="sr-only">{siteConfig.navigation.main.find((n) => n.key === 'contact')!.label[locale]}</h1>
       <Section size="xl" background="white" id="contact-form" className="relative overflow-hidden">
         <OrbitBackground variant="contact" />
         <Container>

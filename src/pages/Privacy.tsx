@@ -1,9 +1,11 @@
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Section, Container } from '@/components/ui';
 import { useI18n } from '@/i18n';
 import { pageSEO } from '@/config/seo';
 import { NavLink } from 'react-router-dom';
+import { JsonLd } from '@/components/ui/JsonLd';
+import { breadcrumbJsonLd } from '@/config/structured-data';
+import { siteConfig } from '@/config/site';
 
 export function PrivacyPage() {
   const { t, locale } = useI18n();
@@ -75,13 +77,14 @@ export function PrivacyPage() {
       description={seo.description}
       canonical={seo.canonical}
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { label: siteConfig.navigation.main[0].label[locale], href: '/' },
+          { label: siteConfig.navigation.footer.legal[0].label[locale], href: '/privacy' },
+        ])}
+      />
 
+      <h1 className="sr-only">{siteConfig.navigation.footer.legal[0].label[locale]}</h1>
       <Section size="lg" background="white">
         <Container>
           <div className="max-w-3xl mx-auto space-y-8">

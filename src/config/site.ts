@@ -10,7 +10,7 @@ export const siteConfig = {
     en: 'We build websites, applications, and software systems designed for business needs—from concept and design through development, deployment, and ongoing support.',
   },
   url: 'https://botech-live.com',
-  ogImage: '/Logo.png',
+  ogImage: '/og-image.png',
   logo: '/Logo.png',
   founder: {
     name: {

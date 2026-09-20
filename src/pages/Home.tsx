@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Hero } from '@/components/sections/Hero';
 import { Services } from '@/components/sections/Services';
@@ -17,16 +16,8 @@ export function Home() {
       description={seo.description}
       canonical={seo.canonical}
       ogImage={seo.ogImage}
+      ogImageAlt="Blue Orbit Technologies – Practical technology solutions for your business"
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta property="og:image" content={seo.ogImage} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-        <meta name="twitter:image" content={seo.ogImage} />
-      </Helmet>
-
       <Hero />
       <Services />
       <Products />

@@ -1,20 +1,10 @@
-# BOTech Website - Robots.txt
+# BOTech Website - robots.txt
 
 User-agent: *
 Allow: /
 
+# Private admin area (do not crawl)
+Disallow: /admin/
+
 # Sitemap
 Sitemap: https://botech-live.com/sitemap.xml
-
-# Disallow private/admin paths
-Disallow: /admin/
-Disallow: /api/
-Disallow: /private/
-Disallow: /*.json$
-Disallow: /*.xml$
-Disallow: /node_modules/
-Disallow: /src/
-Disallow: /.git/
-
-# Crawl-delay (optional, be polite)
-Crawl-delay: 10

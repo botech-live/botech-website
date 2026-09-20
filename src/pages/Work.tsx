@@ -1,10 +1,12 @@
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Work } from '@/components/sections/Work';
 import { CTA } from '@/components/sections/CTA';
 import { Section, Container } from '@/components/ui';
 import { useI18n } from '@/i18n';
 import { pageSEO } from '@/config/seo';
+import { JsonLd } from '@/components/ui/JsonLd';
+import { breadcrumbJsonLd } from '@/config/structured-data';
+import { siteConfig } from '@/config/site';
 
 export function WorkPage() {
   const { t, locale } = useI18n();
@@ -16,14 +18,15 @@ export function WorkPage() {
       description={seo.description}
       canonical={seo.canonical}
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { label: siteConfig.navigation.main[0].label[locale], href: '/' },
+          { label: siteConfig.navigation.main.find((n) => n.key === 'work')!.label[locale], href: '/work' },
+        ])}
+      />
 
       {/* Work Grid */}
+      <h1 className="sr-only">{siteConfig.navigation.main.find((n) => n.key === 'work')!.label[locale]}</h1>
       <Work showHeader={false} />
 
       {/* Additional Projects Note */}

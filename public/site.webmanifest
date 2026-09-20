@@ -1,0 +1,26 @@
+{
+  "name": "Blue Orbit Technologies",
+  "short_name": "BOTech",
+  "description": "نحوّل الأفكار إلى حلول تقنية عملية — حلول تقنية وبرمجية للأعمال.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#375378",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

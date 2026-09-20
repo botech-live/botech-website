@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Container } from '@/components/ui/Container';
 import { Reveal, RevealStagger } from '@/components/ui/Reveal';
@@ -18,12 +17,6 @@ export function NotFound() {
       description={seo.description}
       noIndex
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
 
       <section className="min-h-[80vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800">
         {/* Orbit decoration */}

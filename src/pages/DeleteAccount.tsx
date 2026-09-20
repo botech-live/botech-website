@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Section, Container } from '@/components/ui';
 import { Input, Button } from '@/components/ui';
@@ -89,12 +88,6 @@ export default function DeleteAccount() {
 
   return (
     <Layout title={seo.title} description={seo.description} canonical={seo.canonical} noIndex={seo.noIndex}>
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
 
       <Section size="lg" background="gradient">
         <Container>

@@ -1,13 +1,15 @@
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Services } from '@/components/sections/Services';
 import { WhyBOTech } from '@/components/sections/WhyBOTech';
 import { CTA } from '@/components/sections/CTA';
 import { useI18n } from '@/i18n';
 import { pageSEO } from '@/config/seo';
+import { JsonLd } from '@/components/ui/JsonLd';
+import { breadcrumbJsonLd } from '@/config/structured-data';
+import { siteConfig } from '@/config/site';
 
 export function ServicesPage() {
-  const { locale } = useI18n();
+  const { t, locale } = useI18n();
   const seo = locale === 'ar' ? pageSEO.services : pageSEO.servicesEn;
 
   return (
@@ -16,14 +18,15 @@ export function ServicesPage() {
       description={seo.description}
       canonical={seo.canonical}
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { label: siteConfig.navigation.main[0].label[locale], href: '/' },
+          { label: siteConfig.navigation.main.find((n) => n.key === 'services')!.label[locale], href: '/services' },
+        ])}
+      />
 
       {/* Services Grid */}
+      <h1 className="sr-only">{t.services.title}</h1>
       <Services />
 
       {/* Why BOTech */}

@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { Layout } from '@/components/layout/Layout';
 import { Section, SectionHeader } from '@/components/ui/Section';
 import { Container, Card, Button } from '@/components/ui';
@@ -8,6 +7,8 @@ import { useI18n } from '@/i18n';
 import { pageSEO } from '@/config/seo';
 import { Reveal, RevealStagger } from '@/components/ui/Reveal';
 import { OrbitBackground } from '@/components/ui/OrbitBackground';
+import { JsonLd } from '@/components/ui/JsonLd';
+import { breadcrumbJsonLd } from '@/config/structured-data';
 
 export function About() {
   const navigate = useNavigate();
@@ -21,12 +22,12 @@ export function About() {
       description={seo.description}
       canonical={seo.canonical}
     >
-      <Helmet>
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.description} />
-        <meta name="twitter:title" content={seo.title} />
-        <meta name="twitter:description" content={seo.description} />
-      </Helmet>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { label: siteConfig.navigation.main[0].label[locale], href: '/' },
+          { label: siteConfig.navigation.main.find((n) => n.key === 'about')!.label[locale], href: '/about' },
+        ])}
+      />
 
       {/* Company Introduction */}
       <Section size="xl" background="primary" className="relative overflow-hidden">

@@ -28,14 +28,14 @@ results below were re-tested against the live site.
 | `public/site.webmanifest` | Web App Manifest (name BOTech, theme #375378, start_url `/`) |
 | `src/config/structured-data.ts` | JSON-LD builders: Organization, WebSite, BreadcrumbList, SoftwareApplication, FAQPage |
 | `src/components/ui/JsonLd.tsx` | `<JsonLd data>` component that injects `application/ld+json` via Helmet |
-| `src/hooks/usePageTracking.ts` | Optional GA4 page-view tracking, gated by `VITE_GA4_MEASUREMENT_ID` |
-| `.github/workflows/deploy.yml` | Mirrored from upstream, with `VITE_GA4_MEASUREMENT_ID: ${{ secrets.GA4_MEASUREMENT_ID }}` added to the build step |
+| `src/hooks/usePageTracking.ts` | Sends a GA4 `config` (page_view) on client-side route changes so SPA navigations are tracked without adding a second tag (the Google tag itself lives statically in `index.html`) |
+| `.github/workflows/deploy.yml` | Mirrored exactly from upstream (deploy to GitHub Pages on push to main/master) |
 
 ## 3. Files Modified
 
 | File | Change |
 | --- | --- |
-| `index.html` | New title/description ("BOTech | Blue Orbit Technologies – حلول تقنية عملية"), og-image 1200×630 + alt, removed fake `/en` hreflang links, added manifest/apple-touch/application-name metadata (AdSense script + `google-adsense-account` kept) |
+| `index.html` | New title/description ("BOTech | Blue Orbit Technologies – حلول تقنية عملية"), og-image 1200×630 + alt, removed fake `/en` hreflang links, added manifest/apple-touch/application-name metadata, added the Google tag (gtag.js) for GA4 `G-E5FC17M9RR` (AdSense script + `google-adsense-account` kept) |
 | `public/robots.txt` | Removed `Disallow: /*.xml$` (blocked `/sitemap.xml`), `/*.json$`, `Crawl-delay`; kept only `Allow: /` + `Disallow: /admin/` + Sitemap line |
 | `public/sitemap.xml` | Rewritten: 9 public routes only (no `/en/*`), `lastmod` 2026-09-20, sane priorities/changefreqs |
 | `src/config/site.ts` | `ogImage: '/Logo.png'` → `'/og-image.png'` |
@@ -79,17 +79,18 @@ Non-indexable by design: `/delete-account` (noindex), `/admin/*` (auth + 404), 4
 
 | Check | Result |
 | --- | --- |
-| GH Actions deploy for `fc99d68` | `success` |
+| GH Actions deploy for `48019fb` | `success` |
 | Public routes (raw / followed) | `/` 200 · all others 301 → `/…/` → **200** · `/admin`, `/nonexistent-page` 404 |
 | `/robots.txt` | 200 · `/sitemap.xml` 200 · `/site.webmanifest` 200 |
 | `/og-image.png`, `/apple-touch-icon.png`, `/icons/icon-192.png`, `/icons/icon-512.png` | 200 |
 | Served head (`/`) | new title, og:image 1200×630 + alt, no `/en` hreflang |
+| Google tag (GA4) in served head | `G-E5FC17M9RR` present once on `/` and `/about` (all page shells share it) |
 | JSON-LD / og tags present in built bundle | confirmed (BreadcrumbList, FAQPage, SoftwareApplication, og:image:alt in `index-*.js`) |
 
 ## 11. Remaining Manual Steps (outside repo control — require your action)
 
 1. **Google Search Console (Search Console)** — verify `https://botech-live.com/` (HTML tag or DNS method), submit `/sitemap.xml`, and check "Page indexing" for the URL set above. *No GSC/Search-console submission or indexing happened automatically — that remains manual.*
-2. **Google Analytics 4** — no measurement ID is hard-coded (by requirement). To enable GA4: add the `GA4_MEASUREMENT_ID` secret to the repo (Settings → Secrets and variables → Actions) and rebuild; the gtag code is already wired and gated.
+2. **Google Analytics 4** — ✅ **Done**: the Google tag (`G-E5FC17M9RR`) is hard-coded in `index.html` (one tag per page) and SPA route changes are tracked via `usePageTracking`. Confirm in GA4 → Realtime that visits appear; no further code changes needed.
 3. **AdSense** — script/meta `ca-pub-9476426554530100` and `ads.txt` are live; site approval remains with Google's review.
 
 ## 12. Known Limitations / Notes

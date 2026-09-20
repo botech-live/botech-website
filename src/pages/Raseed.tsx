@@ -143,12 +143,12 @@ export function RaseedPage() {
 
             {/* Phone mockup with real screenshot */}
             <div className="relative">
-              <div className="relative aspect-[9/19] max-w-[280px] mx-auto bg-neutral-900 rounded-[40px] p-1.5 shadow-2xl">
-                <div className="w-full h-full bg-neutral-100 rounded-[38px] overflow-hidden relative">
+              <div className="relative w-full max-w-[280px] mx-auto bg-neutral-900 rounded-[40px] p-1.5 shadow-2xl">
+                <div className="relative w-full aspect-[18/35] bg-neutral-100 rounded-[38px] overflow-hidden">
                   <img
                     src={product.screenshotsThumbs[0] || product.screenshots[0]}
                     alt={`${product.name} ${locale === 'ar' ? 'تطبيق' : 'app'}`}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
                   />
                 </div>

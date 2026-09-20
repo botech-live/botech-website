@@ -1,7 +1,23 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { copyFileSync } from 'node:fs'
+import { copyFileSync, mkdirSync } from 'node:fs'
+
+// Public SPA routes. Each gets a real `index.html` shell at `/<route>/index.html`
+// so GitHub Pages serves them with an HTTP 200 (instead of a soft-404 via
+// 404.html) — required for deep-page indexing.
+const SPA_ROUTES = [
+  'about',
+  'services',
+  'products',
+  'work',
+  'contact',
+  'privacy',
+  'terms',
+  'raseed',
+  'clover',
+  'delete-account',
+]
 
 export default defineConfig({
   plugins: [
@@ -9,7 +25,13 @@ export default defineConfig({
     {
       name: 'copy-index-to-404',
       closeBundle() {
-        copyFileSync(path.resolve(__dirname, 'dist/index.html'), path.resolve(__dirname, 'dist/404.html'))
+        const dist = (p: string) => path.resolve(__dirname, 'dist', p)
+        copyFileSync(dist('index.html'), dist('404.html'))
+        for (const route of SPA_ROUTES) {
+          const dir = dist(route)
+          mkdirSync(dir, { recursive: true })
+          copyFileSync(dist('index.html'), path.join(dir, 'index.html'))
+        }
       },
     },
   ],

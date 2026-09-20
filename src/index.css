@@ -845,3 +845,19 @@
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* Footer (mobile < 768px):
+   - Contact column (5th) spans the full row width.
+   - Email links stay on one line instead of wrapping to two.
+   Desktop/tablet layout is untouched. */
+@media (max-width: 767px) {
+  .footer-grid > *:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  .footer-grid .footer-contact-email {
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+}

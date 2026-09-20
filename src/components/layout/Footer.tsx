@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="bg-neutral-900 text-neutral-300 relative overflow-hidden" role="contentinfo">
       <OrbitBackground variant="footer" />
       <Container className="py-16 lg:py-24">
-        <RevealStagger direction="up" delayStep={80} className="relative grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
+        <RevealStagger direction="up" delayStep={80} className="relative footer-grid grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
           <Reveal>
             <div className="col-span-2 lg:col-span-1 space-y-4">
               <NavLink to="/" className="inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900 rounded-lg tap-scale" aria-label={t.common.backToHome}>
@@ -110,7 +110,7 @@ export function Footer() {
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium text-white text-sm">{locale === 'ar' ? 'التواصل العام' : 'General Contact'}</p>
-                    <a href={`mailto:${site.contact.emails.contact}`} className="text-primary-400 hover:text-primary-300 text-sm transition-colors break-all" dir="ltr">{site.contact.emails.contact}</a>
+                    <a href={`mailto:${site.contact.emails.contact}`} className="footer-contact-email text-primary-400 hover:text-primary-300 text-sm transition-colors break-all" dir="ltr">{site.contact.emails.contact}</a>
                   </div>
                 </div>
 
@@ -120,7 +120,7 @@ export function Footer() {
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium text-white text-sm">{locale === 'ar' ? 'المعلومات والاستفسارات' : 'Information & Inquiries'}</p>
-                    <a href={`mailto:${site.contact.emails.info}`} className="text-primary-400 hover:text-primary-300 text-sm transition-colors break-all" dir="ltr">{site.contact.emails.info}</a>
+                    <a href={`mailto:${site.contact.emails.info}`} className="footer-contact-email text-primary-400 hover:text-primary-300 text-sm transition-colors break-all" dir="ltr">{site.contact.emails.info}</a>
                   </div>
                 </div>
 
@@ -130,7 +130,7 @@ export function Footer() {
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium text-white text-sm">{locale === 'ar' ? 'الدعم الفني' : 'Technical Support'}</p>
-                    <a href={`mailto:${site.contact.emails.support}`} className="text-primary-400 hover:text-primary-300 text-sm transition-colors break-all" dir="ltr">{site.contact.emails.support}</a>
+                    <a href={`mailto:${site.contact.emails.support}`} className="footer-contact-email text-primary-400 hover:text-primary-300 text-sm transition-colors break-all" dir="ltr">{site.contact.emails.support}</a>
                   </div>
                 </div>
                 
